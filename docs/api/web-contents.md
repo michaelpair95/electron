@@ -288,7 +288,22 @@ Returns:
 
 Emitted before dispatching the `keydown` and `keyup` events in the page.
 Calling `event.preventDefault` will prevent the page `keydown`/`keyup` events
-from being dispatched.
+and the menu shortcuts.
+
+To only prevent the menu shortcuts, use
+[`setIgnoreKeyboardShortcuts`](#contentssetignorekeyboardshortcuts):
+
+```javascript
+const {BrowserWindow} = require('electron')
+
+let win = new BrowserWindow({width: 800, height: 600})
+
+win.webContents.on('before-input-event', (event, input) => {
+  // For example, only enable application menu keyboard shortcuts when
+  // Ctrl/Cmd are down.
+  win.webContents.setIgnoreKeyboardShortcuts(input.control || input.meta)
+})
+```
 
 #### Event: 'devtools-opened'
 
@@ -729,6 +744,13 @@ contents.executeJavaScript('fetch("https://jsonplaceholder.typicode.com/users/1"
     console.log(result) // Will be the JSON object from the fetch call
   })
 ```
+
+#### `contents.setIgnoreKeyboardShortcuts(ignore)`
+
+* `ignore` Boolean
+
+Ignore keyboard shortcuts of the application menu while this web contents is
+focused.
 
 #### `contents.setAudioMuted(muted)`
 

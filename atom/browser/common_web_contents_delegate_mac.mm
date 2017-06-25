@@ -28,7 +28,7 @@ void CommonWebContentsDelegate::HandleKeyboardEvent(
     ExitFullscreenModeForTab(source);
 
   // Send the event to the menu before sending it to the window
-  if (event.os_event.type == NSKeyDown &&
+  if (!ignore_keyboard_shortcuts_ && event.os_event.type == NSKeyDown &&
       [[NSApp mainMenu] performKeyEquivalent:event.os_event])
     return;
 

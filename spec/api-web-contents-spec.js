@@ -582,6 +582,13 @@ describe('webContents module', function () {
     })
   })
 
+  describe('setIgnoreKeyboardShortcuts()', function () {
+    it('does not throw', function () {
+      assert.equal(w.webContents.setIgnoreKeyboardShortcuts(true))
+      assert.equal(w.webContents.setIgnoreKeyboardShortcuts(false))
+    })
+  })
+
   describe('destroy()', () => {
     let server
 
